@@ -1,0 +1,45 @@
+spawn: 787.640,6.00064,657.005,0.2,14.9
+gamespawn: 8.402,66.0,39.540,-0.9,73.3
+chrono:
+  giveStone: true
+blocks:
+  autoKillHeight: 50
+  minHeight: 63
+  maxHeight: 100
+  plateformBlocksId:
+  - 1
+  - 1
+  - 1
+  - 14
+  - 15
+  - 16
+  - 46
+  - 17
+  - 17
+  - 2
+  - 2
+borders:
+  minSize: 25.0
+  defaultSize: 79.0
+  decreasePerSecond: 0.1
+autostart:
+  minplayers: 2
+  timer: 10
+gamecycle:
+  timerUntilPvP: 600
+  timerUntilBorders: 300
+messages:
+  prefix: "&7[&eFallingVoid&7] "
+  playerWin: "&e<winner> &6gagne le jeu !"
+  restarting: "&eRestarting..."
+  alreadyStart: "&eLe Jeu a déjà commencé !"
+  join: "&e<player> &6joined ! &7<&8<online>&6/&8<maxonline>&7>"
+  left: "<player> &eleft"
+  pvpEnable: "&cPvP Actif ! &6la plateforme commence à se detruire"
+  decreaseBorders: "&eLes bordures retrecissent !"
+  autoStart:
+    timerSecond: "&eLancement du jeu dans <timer>&6s"
+    timerEnd: "&6Lancement du jeu ! &eTeleportation &6!"
+  actionBar:
+    destroyPlateform: "&c&lDéstruction de la plateforme / PvP dans &e<format>"
+    borders: "&c&lBordures dans &e<format>"

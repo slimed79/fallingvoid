@@ -32,7 +32,7 @@ public class FallingGenerator extends ChunkGenerator {
 					
 					//socle
 					result[toByte(x,minHeight,z)] = 7;
-					main.chunksocle.add(new FallingChunck(x,minHeight,z,chunkX,chunkZ));
+					main.chunkplateform.add(new FallingChunck(x,(minHeight),z,chunkX,chunkZ));
 					
 					//plateform
 					int random1 = main.blocks.get(new Random().nextInt(main.blocks.size()));

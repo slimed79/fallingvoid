@@ -5,19 +5,24 @@ chrono:
 blocks:
   autoKillHeight: 50
   minHeight: 63
-  maxHeight: 100
+  maxHeight: 99
   plateformBlocksId:
   - 1
   - 1
   - 1
-  - 14
   - 15
+  - 14
   - 16
-  - 46
+  - 49
   - 17
   - 17
   - 2
   - 2
+  - 56
+  - 170
+  - 18
+  - 47
+  - 22
 borders:
   minSize: 25.0
   defaultSize: 79.0
@@ -26,8 +31,8 @@ autostart:
   minplayers: 2
   timer: 10
 gamecycle:
-  timerUntilPvP: 600
-  timerUntilBorders: 300
+  timerUntilPvP: 300
+  timerUntilBorders: 120
 messages:
   prefix: "&7[&eFallingVoid&7] "
   playerWin: "&e<winner> &6gagne le jeu !"

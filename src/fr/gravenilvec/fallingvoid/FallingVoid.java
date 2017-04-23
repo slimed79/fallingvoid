@@ -56,11 +56,7 @@ public class FallingVoid extends JavaPlugin{
 			@Override
 			public void run() {
 				loadWorld();
-				for(Player pls : Bukkit.getOnlinePlayers()){
-					PlayerJoinEvent event = new PlayerJoinEvent(pls, null);
-					Bukkit.getPluginManager().callEvent(event);
-				}
-				if(chunkplateform.size() != 6400) Bukkit.reload();
+				if(chunkplateform.size() < 6400) Bukkit.reload();
 			}
 		}.runTaskLater(this, 25);
 		
@@ -92,6 +88,7 @@ public class FallingVoid extends JavaPlugin{
 	}
 	
 	protected void loadWorld() {
+		Bukkit.setWhitelist(false);
 		gameworld = Bukkit.getWorld(gamename);
 		gamespawn = getParseLoc(getConfig().getString("gamespawn"), false);
 		border = gameworld.getWorldBorder();
@@ -135,6 +132,7 @@ public class FallingVoid extends JavaPlugin{
 	}
 
 	public void eliminate(Player player) {
+		
 		if(playersList.contains(player)){
 			playersList.remove(player);
 		}
@@ -149,22 +147,23 @@ public class FallingVoid extends JavaPlugin{
 			player.teleport(winner);
 			playersList.remove(winner);
 			setState(FallingState.FINISH);
+			
+			new BukkitRunnable() {
+				
+				@Override
+				public void run() {
+					
+					for(Player pls : Bukkit.getOnlinePlayers()){
+						pls.kickPlayer(get("restarting"));
+					}
+
+					Bukkit.reload();
+					
+				}
+			}.runTaskLater(this, 100);
 		}
 		
-		
-		new BukkitRunnable() {
-			
-			@Override
-			public void run() {
-				
-				for(Player pls : Bukkit.getOnlinePlayers()){
-					pls.kickPlayer(get("restarting"));
-				}
-
-				Bukkit.reload();
-				
-			}
-		}.runTaskLater(this, 100);
+	
 		
 	}
 

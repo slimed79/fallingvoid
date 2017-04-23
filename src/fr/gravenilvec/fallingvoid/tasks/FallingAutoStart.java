@@ -40,17 +40,13 @@ public class FallingAutoStart extends BukkitRunnable{
 				pls.setGameMode(GameMode.SURVIVAL);
 				pls.teleport(main.getGameSpawn());
 				pls.getInventory().addItem(new ItemStack(Material.IRON_PICKAXE));
+				pls.getInventory().addItem(new ItemStack(Material.IRON_AXE));
+				pls.getInventory().addItem(new ItemStack(Material.BREAD, 8));
 			}
 			cancel();
 			FallingGameCycle cycle = new FallingGameCycle(main);
 			cycle.runTaskTimer(main, 0, 20);
 			main.setState(FallingState.PREGAME);
-			
-			Iterator<FallingChunck> ssocle = main.chunksocle.iterator();
-			while(ssocle.hasNext()){
-				FallingChunck ch = ssocle.next();
-				main.socle.add(main.gameworld.getChunkAt(ch.getChunkX(), ch.getChunkZ()).getBlock(ch.getX(), ch.getY(), ch.getZ()));
-			}
 			
 			Iterator<FallingChunck> splat = main.chunkplateform.iterator();
 			while(splat.hasNext()){
@@ -58,6 +54,7 @@ public class FallingAutoStart extends BukkitRunnable{
 				main.plateform.add(main.gameworld.getChunkAt(ch.getChunkX(), ch.getChunkZ()).getBlock(ch.getX(), ch.getY(), ch.getZ()));
 			}
 			
+			Bukkit.setWhitelist(true);
 		}
 		
 		timer--;

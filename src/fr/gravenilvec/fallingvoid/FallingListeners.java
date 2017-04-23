@@ -3,6 +3,7 @@ package fr.gravenilvec.fallingvoid;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +17,8 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.world.PortalCreateEvent;
+import org.bukkit.inventory.ItemStack;
 
 import fr.gravenilvec.fallingvoid.tasks.FallingAutoStart;
 
@@ -36,6 +39,10 @@ public class FallingListeners implements Listener {
 		player.setHealth(20D);
 		player.getInventory().clear();
 		player.getEnderChest().clear();
+		player.getInventory().setHelmet(new ItemStack(Material.AIR));
+		player.getInventory().setChestplate(new ItemStack(Material.AIR));
+		player.getInventory().setLeggings(new ItemStack(Material.AIR));
+		player.getInventory().setBoots(new ItemStack(Material.AIR));
 
 		if (!main.isState(FallingState.WAITING) && !main.isState(FallingState.STARTING)) {
 			player.setGameMode(GameMode.SPECTATOR);
@@ -58,6 +65,11 @@ public class FallingListeners implements Listener {
 		}
 
 	}
+	
+	@EventHandler
+	public void onCreate(PortalCreateEvent event){
+		event.setCancelled(true);
+	}
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
@@ -78,7 +90,7 @@ public class FallingListeners implements Listener {
 		Player player = event.getPlayer();
 		Location l = player.getLocation();
 
-		if (l.getY() < main.getConfig().getInt("blocks.autoKillHeight") && !main.isState(FallingState.WAITING) && !main.isState(FallingState.STARTING)) {
+		if (!main.isState(FallingState.WAITING) && l.getY() < main.getConfig().getInt("blocks.autoKillHeight") && !main.isState(FallingState.WAITING) && !main.isState(FallingState.STARTING)) {
 			main.eliminate(player);
 			return;
 		}
@@ -96,6 +108,10 @@ public class FallingListeners implements Listener {
 			event.setCancelled(true);
 			return;
 		}
+		
+		if(main.isState(FallingState.PREGAME) && event.getBlock().getType() == Material.TNT){
+			event.setCancelled(true);
+		}
 
 	}
 
@@ -105,6 +121,10 @@ public class FallingListeners implements Listener {
 		if (!main.isState(FallingState.PREGAME) && !main.isState(FallingState.GAME) && !main.isState(FallingState.GAMEBORDER)) {
 			event.setCancelled(true);
 			return;
+		}
+		
+		if(event.getBlock().getType() == Material.LEAVES){
+			event.getPlayer().getInventory().addItem(new ItemStack(Material.APPLE));
 		}
 		
 	}
